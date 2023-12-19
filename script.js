@@ -47,7 +47,16 @@ function attachEventListeners() {
   searchButton.addEventListener("click", searchMeals);
 }
 
+function moveSearchToTop() {
+  const container = document.getElementById("container");
+  container.classList.add("top-position");
+
+  const searchBar = document.getElementById("ingredientInput");
+  searchBar.classList.add("narrow-bar");
+}
+
 function searchMeals() {
+  moveSearchToTop();
   const ingredient = document.getElementById("ingredientInput").value;
   fetchMealsByIngredient(ingredient)
     .then((data) => {
