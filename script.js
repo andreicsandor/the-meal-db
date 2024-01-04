@@ -2,7 +2,6 @@ const API_BASE_URL = "https://www.themealdb.com/api/json/v1/1";
 
 let currentMealId = null;
 
-
 function getMealsByIngredient(ingredient) {
   return (
     fetch(`${API_BASE_URL}/filter.php?i=${ingredient}`, {

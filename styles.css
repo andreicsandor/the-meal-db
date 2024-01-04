@@ -44,16 +44,6 @@ body {
     }
 }
 
-@keyframes moveToMiddle {
-    from {
-        transform: translateY(-500%);
-    }
-
-    to {
-        transform: translateY(0%);
-    }
-}
-
 #logo {
     width: 20rem;
     height: auto;
