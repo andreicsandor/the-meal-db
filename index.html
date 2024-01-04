@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>TheMealDB App</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
-</head>
-<body>
-    <div id="container">
-        <a href="index.html">
-            <img id="logo" src="logo.svg" alt="Logo"/>
-        </a>
-        <input type="text" id="ingredientInput" placeholder="Enter Ingredient">
-        <button id="searchButton">Search</button>
-        <div id="loading" style="display: none;">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="searchContainer">
+      <a href="index.html">
+        <img id="logo" src="logo.svg" alt="Logo" />
+      </a>
+      <input type="text" id="searchInput" placeholder="Enter Ingredient" />
+      <button id="submitSearchButton">Search</button>
+      <div id="initialPageSpinner" style="display: none">
+        <i class="fa fa-spinner fa-spin"></i>
+      </div>
+      <div id="initialPageMessage" style="display: none"></div>
     </div>
-    <div id="results" style="display: none;"></div>
+
+    <div id="searchResultsContainer" style="display: none"></div>
+    <div id="resultsPageMessage" style="display: none"></div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

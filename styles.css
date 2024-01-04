@@ -1,19 +1,21 @@
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     font-family: Arial, sans-serif;
 }
 
-#container {
+#searchContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     height: 100vh;
+    z-index: 1000;
 }
 
-#container.top-position {
+#searchContainer.top-position {
     position: fixed;
     top: 0;
     left: 0;
@@ -32,6 +34,7 @@ html, body {
     from {
         transform: translateY(500%);
     }
+
     to {
         transform: translateY(0%);
     }
@@ -43,15 +46,16 @@ html, body {
     margin-bottom: 2rem;
 }
 
-#ingredientInput, #searchButton {
+#searchInput,
+#submitSearchButton {
     background-color: white;
 }
 
-#searchButton {
+#submitSearchButton {
     background-color: #8c8fae;
     color: #fff;
     border: none;
-    border-radius: 7px;
+    border-radius: 1rem;
     margin: 2rem;
     padding: 0.7rem 2rem;
     font-weight: bold;
@@ -60,12 +64,12 @@ html, body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-#searchButton:hover {
+#submitSearchButton:hover {
     background-color: #584563;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-#ingredientInput {
+#searchInput {
     background-color: #fff;
     border: 2px solid #f0f0f0;
     border-radius: 40px;
@@ -78,42 +82,89 @@ html, body {
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-#ingredientInput:focus {
+#searchInput:focus {
     border-color: #c9c9d9;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-#ingredientInput.narrow-bar {
+#searchInput.narrow-bar {
     width: 25rem;
 }
 
-.fa {
-    color: #D1D2DE !important;
-    font-size: 2.5rem;
+#initialPageMessage {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #584563;
+    width: 100%;
 }
 
-#results {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    grid-gap: 1.5rem; 
+#resultsPageMessage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.2rem;
+    color: #584563;
+    text-align: center;
+}
+
+#searchResultsContainer {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2rem;
     padding: 8rem;
     box-sizing: border-box;
     margin: auto;
     width: 100%;
 }
 
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.animate-results {
+    animation: slideUp 0.5s ease-out forwards;
+}
+
+.fa {
+    color: #d1d2de !important;
+    font-size: 2.5rem;
+}
+
+.results-page-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+}
+
 .meal-card {
     background-color: white;
-    border-radius: 0.25rem;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border-radius: 1rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     width: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.meal-card:hover {
+    transform: scale(1.02);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .meal-image {
     width: 100%;
     height: auto;
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
     display: block;
     margin-bottom: 0;
 }
@@ -126,11 +177,13 @@ html, body {
 .card-title {
     margin-top: 1rem;
     margin-bottom: 0.5rem;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
+    color: #584563;
 }
 
 .card-text {
     margin-top: 0;
     margin-bottom: 0.5rem;
     font-size: 1rem;
+    color: #8c8fae;
 }
