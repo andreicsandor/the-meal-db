@@ -183,22 +183,45 @@ function clearMessages() {
 
 function appendMealToResults(meal) {
   // Select the results div
-  const searchResultsContainer = document.getElementById(
-    "searchResultsContainer"
-  );
+  const searchResultsContainer = document.getElementById("searchResultsContainer");
 
-  // Create the meal card
-  const mealCard = `
-      <div class="meal-card">
-          <img src="${meal.strMealThumb}" alt="Meal Image" class="meal-image">
-          <div class="card-body">
-              <h5 class="card-title">${meal.strMeal}</h5>
-              <p class="card-text">${meal.strCategory} Category</p>
-          </div>
+  // Create a new div element for the meal card
+  const mealCardElement = document.createElement("div");
+  mealCardElement.className = "meal-card";
+  mealCardElement.setAttribute("data-mealid", meal.idMeal);
+  mealCardElement.innerHTML = `
+      <img src="${meal.strMealThumb}" alt="Meal Image" class="meal-image">
+      <div class="card-body">
+          <h5 class="card-title">${meal.strMeal}</h5>
+          <p class="card-text">${meal.strCategory} Category</p>
       </div>`;
 
-  // Append the meal card to the results
-  searchResultsContainer.innerHTML += mealCard;
+  // Append the meal card element to the results
+  searchResultsContainer.appendChild(mealCardElement);
+
+  // Attach event listener to the meal card
+  mealCardElement.addEventListener('click', () => showMealDetails(meal.idMeal));
+}
+
+function showMealDetails(mealId) {
+  getMealDetails(mealId).then(detailData => {
+      if (detailData.meals) {
+          const meal = detailData.meals[0];
+
+          const formattedInstructions = meal.strInstructions.replace(/\r\n/g, '<br>');
+
+          const modal = document.getElementById('mealDetailsModal');
+          modal.innerHTML = `
+              <div class="modal-content">
+                  <h5 class="modal-title">${meal.strMeal}</h5>
+                  <h4 class="modal-subtitle">${meal.strArea} & ${meal.strCategory}</h4>
+                  <p class="modal-text">${formattedInstructions}</p>
+              </div>
+              <img class="modal-image" src="${meal.strMealThumb}" alt="Meal Image">
+          `;
+          modal.style.display = 'block';
+      }
+  });
 }
 
 // Attach event listeners when page is loaded

@@ -98,6 +98,7 @@ body {
     font-size: 1.2rem;
     color: #584563;
     width: 100%;
+    font-weight: 600;
 }
 
 #resultsPageMessage {
@@ -108,6 +109,7 @@ body {
     font-size: 1.2rem;
     color: #584563;
     text-align: center;
+    font-weight: 600;
 }
 
 #searchResultsContainer {
@@ -119,6 +121,19 @@ body {
     box-sizing: border-box;
     margin: auto;
     width: 100%;
+}
+
+#mealDetailsModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 400px;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    border-radius: 1rem;
+    z-index: 1000;
+    overflow: hidden;
 }
 
 @keyframes slideUp {
@@ -189,4 +204,48 @@ body {
     margin-bottom: 0.5rem;
     font-size: 1rem;
     color: #8c8fae;
+}
+
+.modal-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(3px);
+    color: black;
+    padding: 2rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    z-index: 2000;
+}
+
+.modal-image {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.modal-title {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    color: #584563;
+}
+
+.modal-subtitle {
+    margin-top: 0rem;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    color: #8c8fae;
+}
+
+.modal-text {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: black;
 }
