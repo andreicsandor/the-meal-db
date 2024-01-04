@@ -1,5 +1,8 @@
 const API_BASE_URL = "https://www.themealdb.com/api/json/v1/1";
 
+let currentMealId = null;
+
+
 function getMealsByIngredient(ingredient) {
   return (
     fetch(`${API_BASE_URL}/filter.php?i=${ingredient}`, {
@@ -55,8 +58,9 @@ function getMealDetails(mealId) {
 }
 
 function attachEventListeners() {
-  const submitSearchButton = document.getElementById("submitSearchButton");
-  submitSearchButton.addEventListener("click", searchMeals);
+  document.getElementById("submitSearchButton").addEventListener("click", searchMeals);
+  document.getElementById('deleteButton').addEventListener('click', closeModalAndDeleteMeal);
+  document.getElementById('cancelButton').addEventListener('click', closeModal);
 }
 
 function moveSearchToTop() {
@@ -71,6 +75,27 @@ function moveSearchToTop() {
   // Remove the logo
   const logo = document.getElementById("logo");
   logo.style.display = "none";
+}
+
+function moveSearchToMiddle() {
+  // Move the container with the search bar & button to the middle of the page
+  const searchContainer = document.getElementById('searchContainer');
+  searchContainer.classList.remove('top-position');
+
+  // Update the seach bar & button UI
+  const searchBar = document.getElementById("searchInput");
+  searchBar.classList.remove("narrow-bar");
+
+  // Add the logo
+  const logo = document.getElementById("logo");
+  logo.style.display = "block";
+}
+
+function clearMessages() {
+  const initialPageMessage = document.getElementById("initialPageMessage");
+  const resultsPageMessage = document.getElementById("resultsPageMessage");
+  initialPageMessage.style.display = "none";
+  resultsPageMessage.style.display = "none";
 }
 
 function searchMeals() {
@@ -174,13 +199,6 @@ function searchMeals() {
     });
 }
 
-function clearMessages() {
-  const initialPageMessage = document.getElementById("initialPageMessage");
-  const resultsPageMessage = document.getElementById("resultsPageMessage");
-  initialPageMessage.style.display = "none";
-  resultsPageMessage.style.display = "none";
-}
-
 function appendMealToResults(meal) {
   // Select the results div
   const searchResultsContainer = document.getElementById("searchResultsContainer");
@@ -200,18 +218,20 @@ function appendMealToResults(meal) {
   searchResultsContainer.appendChild(mealCardElement);
 
   // Attach event listener to the meal card
-  mealCardElement.addEventListener('click', () => showMealDetails(meal.idMeal));
+  mealCardElement.addEventListener('click', () => openModal(meal.idMeal));
 }
 
-function showMealDetails(mealId) {
+function openModal(mealId) {
+  currentMealId = mealId;
+  
   getMealDetails(mealId).then(detailData => {
       if (detailData.meals) {
           const meal = detailData.meals[0];
 
           const formattedInstructions = meal.strInstructions.replace(/\r\n/g, '<br>');
 
-          const modal = document.getElementById('mealDetailsModal');
-          modal.innerHTML = `
+          const modalContentContainer = document.getElementById('modalContentContainer');
+          modalContentContainer.innerHTML = `
               <div class="modal-content">
                   <h5 class="modal-title">${meal.strMeal}</h5>
                   <h4 class="modal-subtitle">${meal.strArea} & ${meal.strCategory}</h4>
@@ -219,9 +239,30 @@ function showMealDetails(mealId) {
               </div>
               <img class="modal-image" src="${meal.strMealThumb}" alt="Meal Image">
           `;
+
+          const modal = document.getElementById('mealDetailsModal');
           modal.style.display = 'block';
       }
   });
+}
+
+function closeModal() {
+  document.getElementById('mealDetailsModal').style.display = 'none';
+}
+
+function deleteMeal() {
+  if (currentMealId) {
+    const mealCardToRemove = document.querySelector(`.meal-card[data-mealid="${currentMealId}"]`);
+    if (mealCardToRemove) {
+      mealCardToRemove.remove();
+    }
+  }
+  currentMealId = null;
+}
+
+function closeModalAndDeleteMeal() {
+  closeModal();
+  deleteMeal();
 }
 
 // Attach event listeners when page is loaded
