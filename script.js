@@ -76,20 +76,6 @@ function moveSearchToTop() {
   logo.style.display = "none";
 }
 
-function moveSearchToMiddle() {
-  // Move the container with the search bar & button to the middle of the page
-  const searchContainer = document.getElementById('searchContainer');
-  searchContainer.classList.remove('top-position');
-
-  // Update the seach bar & button UI
-  const searchBar = document.getElementById("searchInput");
-  searchBar.classList.remove("narrow-bar");
-
-  // Add the logo
-  const logo = document.getElementById("logo");
-  logo.style.display = "block";
-}
-
 function clearMessages() {
   const initialPageMessage = document.getElementById("initialPageMessage");
   const resultsPageMessage = document.getElementById("resultsPageMessage");
